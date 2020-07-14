@@ -41,9 +41,18 @@ app.get('/contact/:id', jsonParser, async (req, res) => {
     
         const cons = await conn.query(soql) 
 
+        console.log('query size')
+        console.log(cons.records.length)
+
+        if (cons.records.length === 0) {
+
+            return res.status(404).send({error:`No records found, use /contact and pass body as : {"firstname: "foo","lastname: "bar", "developerlevel: "(Novice, Intermediate, Expert, Master, The Brain)"}`})
+            
+        }
+
         console.log(cons)
 
-        contact = cons.records.map(item => {
+        const contact = cons.records.map(item => {
             return {
                 Id: item.Id,
                 Name: item.Name,
