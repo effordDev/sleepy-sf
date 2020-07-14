@@ -40,23 +40,24 @@ app.get('/contact/:id', (req, res) => {
         } else if (result.records.length === 0) {
             res.status(404).send('Session not found.');
         } else {
-            /* Work with result data */
+
+            const formattedData = result.records.map(r => {
+                let speakers = [];
+                
+                speakers = r.records.map(
+                    record => {
+                        return {
+                            id: record.Id,
+                            name: record.Name
+                        };
+                    }
+                );
+            });
+            res.send({ data: formattedData });
         }
     });
 
-    const formattedData = result.records.map(r => {
-        let speakers = [];
-        
-        speakers = r.records.map(
-            record => {
-                return {
-                    id: r.Id,
-                    name: r.Name
-                };
-            }
-        );
-    });
-    res.send({ data: formattedData });
+    
 
 })
 
