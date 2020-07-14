@@ -50,7 +50,7 @@ app.get('/contact/:id', async (req, res) => {
             }
         })
 
-        res.send({ data: cons });
+        res.send({ data: contact });
     
     } catch(error) {
 
